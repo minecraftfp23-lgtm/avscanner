@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "av-gui"
+version = "0.1.0"
+description = "Antivirus Scanner GUI"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "PySide6>=6.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pyinstaller>=6.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
+
+[tool.pyinstaller]
+name = "av-gui"
+onefile = true
+windowed = true
+icon = "assets/icon.ico"
+add-data = [
+    "bin/av-scan.exe;bin",
+]
+hidden-imports = [
+    "PySide6.QtCore",
+    "PySide6.QtWidgets",
+    "PySide6.QtGui",
+]

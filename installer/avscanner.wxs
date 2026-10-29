@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="AvScanner" Version="0.1.0" Manufacturer="AvScanner Project" UpgradeCode="YOUR-GUID-HERE">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of AvScanner is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="Main">
+      <ComponentGroupRef Id="MainComponents" />
+    </Feature>
+  </Package>
+
+  <Directory Id="TARGETDIR" Name="SourceDir">
+    <Directory Id="ProgramFilesFolder">
+      <Directory Id="INSTALLFOLDER" Name="AvScanner" />
+    </Directory>
+    <Directory Id="ProgramMenuFolder">
+      <Directory Id="APPLICATIONMENU" Name="AvScanner" />
+    </Directory>
+    <Directory Id="DesktopFolder" Name="Desktop" />
+  </Directory>
+
+  <ComponentGroup Id="MainComponents" Directory="INSTALLFOLDER">
+    <Component>
+      <File Source="..\av-gui\dist\av-gui.exe" KeyPath="yes" />
+      <Shortcut Id="DesktopShortcut" Directory="DesktopFolder" Name="AvScanner" Target="[INSTALLFOLDER]av-gui.exe" WorkingDirectory="INSTALLFOLDER" />
+      <Shortcut Id="StartMenuShortcut" Directory="APPLICATIONMENU" Name="AvScanner" Target="[INSTALLFOLDER]av-gui.exe" WorkingDirectory="INSTALLFOLDER" />
+      <RemoveFolder Id="APPLICATIONMENU" On="uninstall" />
+      <RemoveFolder Id="INSTALLFOLDER" On="uninstall" />
+    </Component>
+  </ComponentGroup>
+</Wix>
